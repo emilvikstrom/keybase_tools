@@ -10,7 +10,7 @@ defmodule KeybaseTools do
       result when is_map(result) ->
         result
         |> Jason.encode!()
-        |> IO.puts()
+        |> call_keybase()
 
       {:error, error} ->
         IO.puts(error)
@@ -21,20 +21,29 @@ defmodule KeybaseTools do
     main(["help"])
   end
 
-  def operation("list") do
+  defp operation("list") do
     List
   end
 
-  def operation("get") do
+  defp operation("get") do
     Get
   end
 
-  def operation("put") do
+  defp operation("put") do
     Put
   end
 
-  def operation("delete") do
+  defp operation("delete") do
     Delete
+  end
+
+  defp call_keybase(json) do
+    # args =
+    #  ["kvstore", "api", "-m", "#{json}"]
+    #  |> IO.inspect()
+    #
+    # System.cmd("keybase", ["kvstore api -m '#{json}'"], into: IO.stream(:stdio, :line))
+    IO.puts("keybase kvstore api -m '#{json}'")
   end
 end
 
